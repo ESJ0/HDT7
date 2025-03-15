@@ -12,7 +12,7 @@ public class BST_BTS<K extends Comparable<K>, V> {
         }
     }
 
-    private Node<K, V> root;
+    public Node<K, V> root;
 
     public void add(K key, V value) {
         root = addRecursividad(root, key, value);
@@ -27,14 +27,14 @@ public class BST_BTS<K extends Comparable<K>, V> {
         return current;
     }
 
-    public V contenidoNode(K key) {
-        return contenidoNodeRecursividad(root, key);
+    public V search(K key) {
+        return searchRecursividad(root, key);
     }
 
-    private V contenidoNodeRecursividad(Node<K, V> current, K key) {
+    private V searchRecursividad(Node<K, V> current, K key) {
         if (current == null) return null;
         if (key.compareTo(current.key) == 0) return current.value;
-        return key.compareTo(current.key) < 0 ? contenidoNodeRecursividad(current.left, key) : contenidoNodeRecursividad(current.right, key);
+        return key.compareTo(current.key) < 0 ? searchRecursividad(current.left, key) : searchRecursividad(current.right, key);
     }
 
     public void inorderTraversal() {

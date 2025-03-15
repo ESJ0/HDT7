@@ -12,7 +12,7 @@ public class Merchandising {
         this.TallasDisponibles = parseTallas(Tallas);
     }
 
-    private Map<String, Integer> parseTallas(String data) {
+    public Map<String, Integer> parseTallas(String data) {
         Map<String, Integer> tallasMap = new HashMap<>();
         String[] parts = data.split("\\|");
         for (String part : parts) {
