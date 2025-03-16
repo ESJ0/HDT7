@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Inventario {
@@ -10,6 +12,7 @@ public class Inventario {
         Merchandising producto = new Merchandising(SKU, Nombre, Descripcion, Tallas);
         bstSKU.add(SKU, producto);
         bstNombre.add(Nombre, producto);
+        guardarEnCSV();
     }
 
     public Merchandising buscarPorSku(String SKU) {
@@ -30,28 +33,30 @@ public class Inventario {
 
     public boolean editarProducto(String SKU, String nuevaDescripcion, String nuevasTallas) {
         Merchandising producto = bstSKU.search(SKU);
-        if (producto == null) return false;
-
-        bstNombre = removerProductoNombre(bstNombre, producto.Nombre);
-        producto.Descripcion = nuevaDescripcion;
-        producto.TallasDisponibles = producto.parseTallas(nuevasTallas);
-        bstNombre.add(producto.Nombre, producto);
-        return true;
-    }
-
-    private BST_BTS<String, Merchandising> removerProductoNombre(BST_BTS<String, Merchandising> arbol, String nombre) {
-        BST_BTS<String, Merchandising> nuevoArbol = new BST_BTS<>();
-        inorderReinsert(arbol.root, nuevoArbol, nombre);
-        return nuevoArbol;
-    }
-
-    private void inorderReinsert(BST_BTS.Node<String, Merchandising> node, BST_BTS<String, Merchandising> nuevoArbol, String nombreAEliminar) {
-        if (node == null) return;
-        inorderReinsert(node.left, nuevoArbol, nombreAEliminar);
-        if (!node.key.equals(nombreAEliminar)) {
-            nuevoArbol.add(node.key, node.value);
+        if (producto != null) {
+            producto.Descripcion = nuevaDescripcion;
+            producto.TallasDisponibles = producto.parseTallas(nuevasTallas);
+            guardarEnCSV();
+            return true;
         }
-        inorderReinsert(node.right, nuevoArbol, nombreAEliminar);
+        return false;
+    }
+
+     public void guardarEnCSV() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("inventario.csv"))) {
+            guardarRecursivo(bstSKU.root, bw);
+        } catch (IOException e) {
+            System.out.println("Error al guardar CSV: " + e.getMessage());
+        }
+    }
+
+    private void guardarRecursivo(BST_BTS.Node<String, Merchandising> node, BufferedWriter bw) throws IOException {
+        if (node != null) {
+            guardarRecursivo(node.left, bw);
+            bw.write(node.value.toCSV());
+            bw.newLine();
+            guardarRecursivo(node.right, bw);
+        }
     }
 
     public void cargarDesdeCSV(String filename) throws IOException {

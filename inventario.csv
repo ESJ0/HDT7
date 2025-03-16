@@ -1,5 +1,6 @@
-SKU001,Producto A,Es rojo,xs:10|s:15|m:25|l:10|xl:8
-SKU002,Producto B,Es azul,xs:5|s:20|m:30|l:12|xl:7
-SKU003,Producto C,Es amarillo,xs:8|s:18|m:28|l:14|xl:10
-SKU004,Producto D,Es verde,xs:12|s:22|m:35|l:15|xl:9
-SKU005,Producto E,Es naranja,xs:7|s:17|m:26|l:13|xl:11
+SKU001,Producto A,Es rojo,s:15|xl:8|xs:10|l:10|m:25
+SKU002,Producto B,Es azul,s:20|xl:7|xs:5|l:12|m:30
+SKU003,Producto C,Es amarillo,s:18|xl:10|xs:8|l:14|m:28
+SKU004,Producto D,Es verde,s:22|xl:9|xs:12|l:15|m:35
+SKU005,Producto E,Es morado,s:12|xl:15|xs:11|l:14|m:13
+SKU006,Producto F,Es rosado,s:15|xl:8|xs:10|l:10|m:25

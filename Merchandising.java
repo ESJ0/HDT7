@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Merchandising {
@@ -25,5 +27,16 @@ public class Merchandising {
     @Override
     public String toString() {
         return "SKU: " + SKU + ", Nombre: " + Nombre + ", Descripcion: " + Descripcion + ", TallasDisponibles: " + TallasDisponibles;
+    }
+
+    public String toCSV() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(SKU).append(",").append(Nombre).append(",").append(Descripcion).append(",");
+        List<String> tallas = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : TallasDisponibles.entrySet()) {
+            tallas.add(entry.getKey() + ":" + entry.getValue());
+        }
+        sb.append(String.join("|", tallas));
+        return sb.toString();
     }
 }
