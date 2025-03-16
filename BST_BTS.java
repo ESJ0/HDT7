@@ -1,3 +1,7 @@
+/**
+ * Implementacion de un arbol binario de busqueda (BST) y un arbol binario de busqueda (BTS) en Java.
+ */
+
 public class BST_BTS<K extends Comparable<K>, V> {
     public static class Node<K, V> {
 
@@ -14,10 +18,22 @@ public class BST_BTS<K extends Comparable<K>, V> {
 
     public Node<K, V> root;
 
+    /**
+     * Metodo para agregar un nodo al arbol.
+     * @param key
+     * @param value
+     */
     public void add(K key, V value) {
         root = addRecursividad(root, key, value);
     }
 
+    /**
+     * Metodo recursivo para agregar un nodo al arbol.
+     * @param current
+     * @param key
+     * @param value
+     * @return
+     */
     private Node<K, V> addRecursividad(Node<K, V> current, K key, V value) {
         if (current == null) return new Node<>(key, value);
         if (key.compareTo(current.key) < 0)
@@ -27,20 +43,38 @@ public class BST_BTS<K extends Comparable<K>, V> {
         return current;
     }
 
+    /**
+     * Metodo para buscar un nodo en el arbol.
+     * @param key
+     * @return
+     */
     public V search(K key) {
         return searchRecursividad(root, key);
     }
 
+    /**
+     * Metodo recursivo para buscar un nodo en el arbol.
+     * @param current
+     * @param key
+     * @return
+     */
     private V searchRecursividad(Node<K, V> current, K key) {
         if (current == null) return null;
         if (key.compareTo(current.key) == 0) return current.value;
         return key.compareTo(current.key) < 0 ? searchRecursividad(current.left, key) : searchRecursividad(current.right, key);
     }
 
+    /**
+     * Metodo para recorrer el arbol en orden.
+     */
     public void inorderTraversal() {
         inorderRecursividad(root);
     }
 
+    /**
+     * Metodo recursivo para recorrer el arbol en orden.
+     * @param node
+     */
     private void inorderRecursividad(Node<K, V> node) {
         if (node != null) {
             inorderRecursividad(node.left);
